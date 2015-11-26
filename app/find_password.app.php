@@ -101,11 +101,30 @@ class Find_passwordApp extends MallbaseApp
                     'back_index', 'index.php');
                 return ;
             }
+            $this->assign('id', $id);
+            $this->assign('activation', $activation);
             $this->import_resource('jquery.plugins/jquery.validate.js');
             $this->display("set_password.html");
         }
         else
         {
+
+            if (!isset($_POST['id']) || !isset($_POST['activation']) || empty($_POST['activation']))
+            {
+                $this->show_warning("request_error",
+                    'back_index', 'index.php');
+                return ;
+            }
+            $id = intval(trim($_POST['id']));
+            $activation = trim($_POST['activation']);
+            $res = $this->_password_mod->get_info($id);
+            if (md5($activation) != $res['activation'])
+            {
+                $this->show_warning("invalid_link",
+                    'back_index', 'index.php');
+                return ;
+            }
+
             if (empty($_POST['new_password']) || empty($_POST['confirm_password']))
             {
                 $this->show_warning("unsettled_required");
@@ -128,9 +147,10 @@ class Find_passwordApp extends MallbaseApp
             $id = intval($_GET['id']);
             $word = $this->_rand();
             $md5word = md5($word);
+            $old_password=trim($_POST['new_password']);
 
             $ms =& ms();        //连接用户系统
-            $ms->user->edit($id, '', array('password' => $password), true); //强制修改
+            $ms->user->edit($id, $old_password, array('password' => $password), true); //强制修改
             if ($ms->user->has_error())
             {
                 $this->show_warning($ms->user->get_error());

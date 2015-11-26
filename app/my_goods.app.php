@@ -1875,14 +1875,14 @@ class My_goodsApp extends StoreadminbaseApp
     {
         $goods = array(
             'goods_name'       => $_POST['goods_name'],
-            'description'      => $_POST['description'],
+            'description'      => html_script($_POST['description']),
             'cate_id'             => $_POST['cate_id'],
             'cate_name'        => $_POST['cate_name'],
             'brand'                  => $_POST['brand'],
             'if_show'             => $_POST['if_show'],
             'last_update'      => gmtime(),
             'recommended'      => $_POST['recommended'],
-            'tags'             => trim($_POST['tags']),
+            'tags'             => html_script(trim($_POST['tags'])),
         );
         $spec_name_1 = !empty($_POST['spec_name_1']) ? $_POST['spec_name_1'] : '';
         $spec_name_2 = !empty($_POST['spec_name_2']) ? $_POST['spec_name_2'] : '';
@@ -1943,7 +1943,7 @@ class My_goodsApp extends StoreadminbaseApp
                                 'spec_1' => $spec_1,
                                 'price'  => $this->_filter_price($_POST['price'][$key]),
                                 'stock'  => intval($_POST['stock'][$key]),
-                                'sku'       => trim($_POST['sku'][$key]),
+                                'sku'       => html_script(trim($_POST['sku'][$key])),
                             );
                         }
                         else  // 新增的规格
@@ -1952,7 +1952,7 @@ class My_goodsApp extends StoreadminbaseApp
                                 'spec_1' => $spec_1,
                                 'price'  => $this->_filter_price($_POST['price'][$key]),
                                 'stock'  => intval($_POST['stock'][$key]),
-                                'sku'       => trim($_POST['sku'][$key]),
+                                'sku'       => html_script(trim($_POST['sku'][$key])),
                             );
                         }
 
@@ -1976,7 +1976,7 @@ class My_goodsApp extends StoreadminbaseApp
                                 'spec_2'    => $spec_2,
                                 'price'     => $this->_filter_price($_POST['price'][$key]),
                                 'stock'     => intval($_POST['stock'][$key]),
-                                'sku'       => trim($_POST['sku'][$key]),
+                                'sku'       => html_script(trim($_POST['sku'][$key])),
                             );
                         }
                         else // 新增的规格
@@ -1986,7 +1986,7 @@ class My_goodsApp extends StoreadminbaseApp
                                 'spec_2'    => $spec_2,
                                 'price'     => $this->_filter_price($_POST['price'][$key]),
                                 'stock'     => intval($_POST['stock'][$key]),
-                                'sku'       => trim($_POST['sku'][$key]),
+                                'sku'       => html_script(trim($_POST['sku'][$key])),
                             );
                         }
 

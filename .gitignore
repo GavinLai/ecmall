@@ -1,4 +1,7 @@
 # App
+data/*
+temp/*
+external/widgets/*
 
 # Eclipse
 .buildpath

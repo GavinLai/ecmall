@@ -340,7 +340,7 @@ class OrderApp extends ShoppingbaseApp
             case 'groupbuy':
                 /* 团购的商品 */
                 $model_groupbuy =& m('groupbuy');
-                $model_groupbuy->updateRelation('be_join', $_GET['group_id'], $this->visitor->get('user_id'), array(
+                $model_groupbuy->updateRelation('be_join', intval($_GET['group_id']), $this->visitor->get('user_id'), array(
                     'order_id'  => $order_id,
                 ));
             break;

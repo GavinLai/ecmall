@@ -339,7 +339,7 @@ class Seller_groupbuyApp extends StoreadminbaseApp
         }
         else
         {
-            $this->_groupbuy_mod->edit($id, array('group_desc' => trim($_POST['group_desc'])));
+            $this->_groupbuy_mod->edit($id, array('group_desc' => html_script(trim($_POST['group_desc']))));
             if ($this->_groupbuy_mod->has_error())
             {
                 $this->show_warning($this->_groupbuy_mod->get_error());
@@ -493,7 +493,7 @@ class Seller_groupbuyApp extends StoreadminbaseApp
 
         $data = array(
             'group_name' => $post['group_name'],
-            'group_desc' => $post['group_desc'],
+            'group_desc' => html_script($post['group_desc']),
             'start_time' => $post['start_time'],
             'end_time'   => $post['end_time'] - 1,
             'goods_id'   => $post['goods_id'],

@@ -353,7 +353,15 @@ class ecsTemplate
             $source = $this->smarty_prefilter_preCompile($source);
         }
 
-        return preg_replace("/{([^\}\{\n]*)}/e", "\$this->select('\\1');", $source);
+        if (version_compare(PHP_VERSION, '5.5.0') < 0) {
+        	return preg_replace("/{([^\}\{\n]*)}/e", "\$this->select('\\1');", $source);
+        }
+        else {
+        	return preg_replace_callback("/{([^\}\{\n]*)}/", array($this,'_select'), $source);
+        }
+    }
+    private function _select($matches) {
+    	return $this->select($matches[1]);
     }
 
     /**
@@ -1380,7 +1388,7 @@ class ecsTemplate
             '/(href=["|\'])\.\.\/(.*?)(["|\'])/i',  // 替换相对链接
             '/((?:background|src)\s*=\s*["|\'])(?:\.\/|\.\.\/)?(images\/.*?["|\'])/is', // 在images前加上 $tmp_dir
             '/((?:background|background-image):\s*?url\()(?:\.\/|\.\.\/)?(images\/)/is', // 在images前加上 $tmp_dir
-            '/{nocache}(.+?){\/nocache}/ise', //无缓存模块
+            '/{nocache}(.+?){\/nocache}/is', //无缓存模块
             );
         $replace = array(
             '\1',
